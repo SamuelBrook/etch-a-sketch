@@ -1,24 +1,53 @@
+//Create grid with an initial starting size of 32*32
+
 
 let gridSize = 32;
 createGrid(gridSize);
 
-const button = document.querySelector("#button");
-
-button.addEventListener("click", () => {
-    console.log(gridSize);
-    removeGridBlocks();
-    gridSize = prompt("Please enter the number of squares you would like on both sides (maximum 100).");
-    createGrid(gridSize);
-});
-
 
 //button "unpressed"
+
+
 let isPressed = false;
 
 document.addEventListener("keydown", logKeyDown);
 
 
+
+//Reset button
+
+
+const button = document.querySelector("#button");
+
+button.addEventListener("click", () => {
+    console.log(gridSize);
+    gridSizeNew = prompt("Please enter the number of squares you would like on both sides (maximum 100).");
+    removeGrid();
+    if (gridSizeNew > 100) {
+        gridSize = 100;
+    }
+    else if (gridSizeNew % 1 !== 0 || gridSizeNew < 1) {
+        alert("Please enter a valid whole number between 1 and 100");
+    }
+    else {
+        gridSize = gridSizeNew;
+    }
+    console.log(gridSize);
+    createGrid(gridSize);
+});
+
+
+//Create grid and remove grid functions 
+
+
 function createGrid(gridSize) {
+    const outerContainer = document.querySelector("#outer-container");
+    const container = document.createElement('div');
+    container.setAttribute("id", "container");
+    outerContainer.appendChild(container);
+    container.style = "grid-template-columns: repeat("+ gridSize +", 1fr)";
+    const informationBox = document.querySelector("#information-box");
+    outerContainer.insertBefore(container,informationBox);
     for (let i = 0; i < (gridSize * gridSize); i++) {
         const container = document.querySelector('#container');
 
@@ -28,13 +57,17 @@ function createGrid(gridSize) {
     }
 }
 
-function removeGridBlocks() {
+function removeGrid() {
+    const outerContainer = document.querySelector("#outer-container");
+    console.log(outerContainer);
     const container = document.querySelector("#container");
-    const div = document.querySelector(".grid-block");
-    for (let i = 0; i < (gridSize * gridSize); i++) {
-        container.removeChild(div);
-    }
+    outerContainer.removeChild(container);
 }
+
+
+
+    
+//Drawing function, including keyup and keydown functions
 
 
 //button pressed and code executed
@@ -70,4 +103,14 @@ function logKeyDown(e) {
         });
     }
 }
+
+
+
+
+
+
+
+
+
+let container = document.querySelector("#container");
 

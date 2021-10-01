@@ -2,7 +2,6 @@
     border-style: dotted;
     border-color: darkblue;
     border-width: thin;
-    padding: 10px;
 }
 
 #container {
@@ -11,7 +10,7 @@
     border-color: maroon;
     border-width: medium;
     display: grid;
-    grid-template-columns: repeat(32, 1fr);
+    grid-template-columns: repeat(32, 1fr); 
     width: 960px;
     height: 960px;
     margin: 4px;
